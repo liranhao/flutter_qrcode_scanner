@@ -94,10 +94,10 @@ class QRViewController {
       : _channel = MethodChannel(
             'com.flutter.scanner.flutter_qrcode_scanner/qrview_$id') {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
-      final RenderBox? renderBox =
+      final RenderBox renderBox =
           qrKey.currentContext?.findRenderObject() as RenderBox;
       _channel.invokeMethod('setDimensions',
-          {'width': renderBox?.size.width, 'height': renderBox?.size.height});
+          {'width': renderBox.size.width, 'height': renderBox.size.height});
     }
     _channel.setMethodCallHandler(
       (call) async {

@@ -39,32 +39,34 @@ class QRView(private val registrar: PluginRegistry.Registrar, id: Int) :
         channel.setMethodCallHandler(this)
         checkAndRequestPermission(null)
         registrar.activity().application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-            override fun onActivityPaused(p0: Activity?) {
+            override fun onActivityPaused(p0: Activity) {
                 if (p0 == registrar.activity()) {
                     barcodeView?.pause()
                 }
             }
 
-            override fun onActivityResumed(p0: Activity?) {
+            override fun onActivityResumed(p0: Activity) {
                 if (p0 == registrar.activity()) {
                     barcodeView?.resume()
                 }
             }
 
-            override fun onActivityStarted(p0: Activity?) {
+            override fun onActivityStarted(p0: Activity) {
             }
 
-            override fun onActivityDestroyed(p0: Activity?) {
+            override fun onActivityDestroyed(p0: Activity) {
             }
 
-            override fun onActivitySaveInstanceState(p0: Activity?, p1: Bundle?) {
+            override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {
             }
 
-            override fun onActivityStopped(p0: Activity?) {
+            override fun onActivityStopped(p0: Activity) {
             }
 
-            override fun onActivityCreated(p0: Activity?, p1: Bundle?) {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             }
+
+
         })
     }
 
@@ -140,7 +142,7 @@ class QRView(private val registrar: PluginRegistry.Registrar, id: Int) :
 
     private inner class CameraRequestPermissionsListener : PluginRegistry.RequestPermissionsResultListener {
         override fun onRequestPermissionsResult(id: Int, permissions: Array<String>, grantResults: IntArray): Boolean {
-            if (id == CAMERA_REQUEST_ID && grantResults[0] == PERMISSION_GRANTED) {
+            if (id == CAMERA_REQUEST_ID && grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
                 cameraPermissionContinuation?.run()
                 return true
             }

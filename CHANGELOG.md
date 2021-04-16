@@ -1,6 +1,3 @@
-## 0.0.2
+## 0.0.6
 
-* minSdkVersion->19
-
-## 0.0.3
-* add nullsafety
+* Fix permission crash
